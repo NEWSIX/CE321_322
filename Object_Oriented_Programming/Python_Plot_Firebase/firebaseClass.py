@@ -1,53 +1,51 @@
-import pandas as pd                                                                 # Library  for using Datafram
-import numpy as np                                                                  # Library  for using numpy
-import matplotlib.pyplot as plt                                                     # Library  for using matplot
-from statistics import mode                                                         # Library  for using statistics
+import pyrebase # https://github.com/thisbejim/Pyrebase                             #Library  for using firebase
+import pandas as pd                                                                 #Library  for using Datafram
+from firebase import firebase as fb                                                 #for using method firebase in firebase class
 
-class Analysis:
- #  def viewRank(df):                                                               # Ranking
- #      data = df.drop(['username'],axis=1)                                         # Select Attribute to Build Rank Score
- #      sum = np.sum(data)                                                          # sum value in data
- #      sum = sum.rank(ascending=False)                                             # Ranking by Pandas module
- #      sum = round(sum)                                                            # Round Num
- #      #sum = sum.astype(np.int64)                                                 # Set Float 64 to Integer 64
- #      sum = sum.sort_values()                                                     # Sort for Number of Rank
- #      sum = pd.DataFrame(sum,columns = ['Rank'])                                  # SET ROW(s) AND Column(s)
- #      sum = sum.transpose()                                                       # Martix Transpose
- #      colum = sum.columns                                                         # GET ATTRIBUTE NAME
- #      row = df.values.tolist()
- #      row = sum.values.tolist()                                                   # RANK Result                                        
- #      row = list(np.concatenate(row).flat)                                        # CONVERT ARRAY 2D TO 1D
- #      Rank = {colum[i]: row[i] for i in range(len(colum))}                        # SET RANKING TO ATTRIBUTE
- #      plotGraph.rankGraph(colum,row,'View Rank')                                  # plot
- #      return Rank
+class firebaseClass:
+    def Retrieving(addr):                                                           # Config TO Firebase
+        firebaseConfig = {                                                          
+        "apiKey": "AIzaSyDVJn6ER2ATaspHaHFHVB0jU_s53tMlHJM",                        # My Firebase Config
+        "authDomain": "javaproject-86658.firebaseapp.com",
+        "databaseURL": "https://javaproject-86658-default-rtdb.firebaseio.com",
+        "projectId": "javaproject-86658",
+        "storageBucket": "javaproject-86658.appspot.com",
+        "messagingSenderId": "449604717569",
+        "appId": "1:449604717569:web:19059f5a8333a0901fc400",
+        "measurementId": "G-SZ5KKGTP0S"
+        }
+        firebaseC=pyrebase.initialize_app(firebaseConfig)
+        db = firebaseC.database()
+        data = []
+        user = db.child(addr).get()
+        for user in user.each():                                                    # Retriev From Firebase
+            #print(user.val())
+            data.append(user.val())
+            df = pd.DataFrame(data)
+        return df
 
- #  def userRank(df):
- #      df["SUM"] = df.sum(axis=1)                                                  # Sum Row     
- #      df['Rank'] = df['SUM'].rank(ascending = False)                              # Ranking
- #      df = df.sort_values(by=['Rank'])                                            # Sort Rank
- #      x = df['ID']                                                                # Set Attribute to plot Rank Score
- #      y = round(df['Rank'])                                                       # Set Attribute to plot Rank Score & Round
- #      Rank = dict(zip(x, y))                                                      # Select Attribute to Build Rank Score                                              
- #      plotGraph.rankGraph(x,y,'User Rank')                                        # plot
- #      return Rank
+    def Commit(url,addr,att,value):                                                 # Commit or Update To Firebase
+        firebaseC = fb.FirebaseApplication(url, None)
+        firebaseC.put(addr,att,value) 
 
-    def Ranking(df):                                                                # Ranking Data 
-        data = mode(df["product"])
-        mm = [ { "Most Product Buy" :"000","Rank":"0"}
-                ,{"Most Product Buy" :data,"Rank":"10"}
-                ,{ "Most Product Buy" :"020","Rank":"0"}]
-        return mm
-   
+    def insert(url,addr,data):                                                      # Insert or Create New Schema(s)
+        firebaseC = fb.FirebaseApplication(url, None)
+        address = firebaseC.post(addr,data)
+        print(address)
+    
+    def delete(url,addr,att):                                                       # Delete Shemas or Data
+        firebaseC = fb.FirebaseApplication(url, None)
+        firebaseC.delete(addr,att) 
+
+    def RankCommit(rank,data):                                                      # Ranking Update
+       # firebaseClass.delete('https://javaproject-86658-default-rtdb.firebaseio.com/',rank,None)
+        firebaseClass.insert('https://javaproject-86658-default-rtdb.firebaseio.com/',rank,data) 
 
 
-class plotGraph():                                                                  #Plot
-    def rankGraph(x,y,label):
-        x = np.array(x)
-        y = np.array(y)
-        plt.ylabel(label)
-        #plt.ylabel(xlabel)
-        plt.bar(x, y)
-        #plt.show()
 
- #class ML(self):
- #   def rec_content():
+#firebaseClass.Commit('https://javaproject-86658-default-rtdb.firebaseio.com/','-MZ7pklV_oLTlSXkWSy8/0','Name','Bob6')
+#data = {'ID':'0006','Name': 'Sean','Time':10,'view1':1,'view2':0,'view3':1}
+#firebaseClass.insert('https://javaproject-86658-default-rtdb.firebaseio.com/',"WEB",data) 
+#firebaseClass.Retrieving('DATA')
+#firebaseClass.delete('https://javaproject-86658-default-rtdb.firebaseio.com/','WEB_HS',None)
+
