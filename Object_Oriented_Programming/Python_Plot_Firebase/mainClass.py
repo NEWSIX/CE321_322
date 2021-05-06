@@ -30,7 +30,7 @@ class filterData:
         return df
 
 
-mainClass.callfunction()
+mainClass.callfunction()                                                                  # Method Call
 #data = [ {'Page':"Page1_1",'views':5}                                                    #TEST insert DATA
 #             ,{'Page':"Page1_2",'views':20}
 #             ,{'Page':"Page2_1",'views':11}
