@@ -1,9 +1,11 @@
 import pandas as pd
 import numpy as np 
 import matplotlib.pyplot as plt
+from statistics import mode
+
 class Analysis:
     def viewRank(df):                                                               # Ranking
-        data = df.drop(['ID'],axis=1)                                               # Select Attribute to Build Rank Score
+        data = df.drop(['username'],axis=1)                                         # Select Attribute to Build Rank Score
         sum = np.sum(data)                                                          # sum value in data
         sum = sum.rank(ascending=False)                                             # Ranking by Pandas module
         sum = round(sum)                                                            # Round Num
@@ -29,6 +31,12 @@ class Analysis:
         plotGraph.rankGraph(x,y,'User Rank')                                        # plot
         return Rank
     
+    def Ranking(df):
+        data = mode(df["product"])
+        mm = [ { "Most Product Buy" :"000","Rank":"0"}
+                ,{"Most Product Buy" :data,"Rank":"10"}
+                ,{ "Most Product Buy" :"020","Rank":"0"}]
+        return mm
    
 
 
