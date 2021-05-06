@@ -5,28 +5,33 @@ from Analysis import plotGraph as plt
 
 class mainClass:  
     def callfunction():  
-        df = fireClass.Retrieving('WEB')                                            # Firebase Retrieving
-        data = filterData.MergeData(df)
-        viewRank = anls.viewRank(data)                                              # View Ranking
-        #userRank = anls.userRank(data)                                             # User Ranking
+        df = fireClass.Retrieving('historyWEB')                                            # Firebase Retrieving
+        print(df)
+        data = anls.Ranking(df)
+        fireClass.RankCommit('',data)
+        
+        #data = filterData.MergeData(df)
+        #viewRank = anls.viewRank(data)                                                    # View Ranking
+        #userRank = anls.userRank(data)                                                    # User Ranking
         #fireClass.RankCommit('userRank',userRank)
-        #fireClass.RankCommit('viewRank',viewRank)                                  # Update view rank Score
+        #fireClass.RankCommit('viewRank',viewRank)                                         # Update view rank Score
+        #df = df.groupby('username').groups
+
+        
         
 class filterData: 
 
     def cleanData(df):
-        data = filterData.MergeData(df)                                             # Merge USER ID
+        data = filterData.MergeData(df)                                                   # Merge USER ID
         return data
     def MergeData(df):
-        col = df.columns.drop(['ID'])                                               # Select All Attribute except ID
-        df = df.groupby('ID')[col].first().reset_index()                            # Group Same Value in Attribute 'ID'
+        col = df.columns.drop(['username'])                                               # Select All Attribute except ID
+        df = df.groupby('username')[col].first().reset_index()                            # Group Same Value in Attribute 'ID'
         return df
 
 
-df = fireClass.Retrieving('viewRank')   
-print(df)
-#mainClass.callfunction()
-#data = [ {'Page':"Page1_1",'views':5}                                              #TEST insert DATA
+mainClass.callfunction()
+#data = [ {'Page':"Page1_1",'views':5}                                                    #TEST insert DATA
 #             ,{'Page':"Page1_2",'views':20}
 #             ,{'Page':"Page2_1",'views':11}
 #             ,{'Page':"Page2_2",'views':31}
