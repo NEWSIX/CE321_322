@@ -1,40 +1,40 @@
-<!doctype html>
+<!doctype html>             
 <html>
 
 <head>
   <title>Firebase Basic Example</title>
   <!-- including FusionCharts core package JS files -->
-  <script src="https://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
-  <link rel="stylesheet" href="https://raw.githubusercontent.com/NEWSIX/python_mysql/main/main.css">
+  <script src="https://static.fusioncharts.com/code/latest/fusioncharts.js"></script>                           # USE FOR CHART
+  <link rel="stylesheet" href="https://raw.githubusercontent.com/NEWSIX/python_mysql/main/main.css">            
 
   <!-- including Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-database.js"></script>
-  <script src="app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-app.js"></script>                              # FOR LOGIN FIREBASE
+  <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-database.js"></script>                         #       " "
+  <script src="app.js"></script>                                                                                # FOR USE App.js (Config Database)
   <script>
-    window.addEventListener("load", getData(genFunction));
+    window.addEventListener("load", getData(genFunction));                                                      # Call Function
 
-    function getData(callbackIN) {
-      var ref = firebase.database().ref("-MZzvln059Bc8yT7J4v7");
+    function getData(callbackIN) {                                                                              # Function For Retrieving From Firebase
+      var ref = firebase.database().ref("-MZzvln059Bc8yT7J4v7");                                                # Select Schema in Firebase
       ref.once('value').then(function (snapshot) {
         callbackIN(snapshot.val())
       });
     }
 
-    function genFunction(data) {
+    function genFunction(data) {                                                                                # Get Data From Attribute
       var cdata = [];
       var len = data.length;
       for(var i=0; i<len; i++) {
         cdata.push({
-          label: data[i]['Most Product Buy'],
-          value: data[i]["Rank"]
+          label: data[i]['Most Product Buy'],                                                                   # Select Attribute Most Product Buy
+          value: data[i]["Rank"]                                                                                # Select Attribute Rank
         });
 
       }
 
 
-    var firebaseChart = new FusionCharts({
-        type: 'area2d',
+    var firebaseChart = new FusionCharts({                                                                       # New Object and Use Chart
+        type: 'area2d', 
         renderAt: 'chart-container',
         width: '650',
         height: '400',
@@ -85,7 +85,7 @@
         }
     });
 
-    firebaseChart.render();
+    firebaseChart.render();                                                                                      # Function Call
 
     }
 
