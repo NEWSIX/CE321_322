@@ -1,7 +1,7 @@
-import pandas as pd
-from firebaseClass import firebaseClass as fireClass
-from Analysis import Analysis as anls
-from Analysis import plotGraph as plt
+import pandas as pd                                                                       # Library  for using Datafram
+from firebaseClass import firebaseClass as fireClass                                      # for using method firebaseClass in firebase class
+from Analysis import Analysis as anls                                                     # for using method Analysis in Analysis class
+from Analysis import plotGraph as plt                                                     # for using method firebase in Analysis class
 
 class mainClass:  
     def callfunction():  
