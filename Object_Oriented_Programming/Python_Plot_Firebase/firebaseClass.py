@@ -32,14 +32,14 @@ class firebaseClass:
     def insert(url,addr,data):                                                      # Insert or Create New Schema(s)
         firebaseC = fb.FirebaseApplication(url, None)
         address = firebaseC.post(addr,data)
-        #print(address)
+        print(address)
     
     def delete(url,addr,att):                                                       # Delete Shemas or Data
         firebaseC = fb.FirebaseApplication(url, None)
         firebaseC.delete(addr,att) 
 
     def RankCommit(rank,data):                                                      # Ranking Update
-        firebaseClass.delete('https://javaproject-86658-default-rtdb.firebaseio.com/',rank,None)
+       # firebaseClass.delete('https://javaproject-86658-default-rtdb.firebaseio.com/',rank,None)
         firebaseClass.insert('https://javaproject-86658-default-rtdb.firebaseio.com/',rank,data) 
 
 
